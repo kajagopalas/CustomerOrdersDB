@@ -1,0 +1,138 @@
+Create Database CustomerOrdersDB
+Use CustomerOrdersDB
+
+
+Create table Customers (
+customer_id int,
+name varchar(100),
+email varchar(100),
+city varchar(100))
+
+alter table Customers
+alter column customer_id int not null
+
+
+insert into Customers values (1,'Alice Johnson','alice@mail.com','Mumbai'),
+(2,'Brian Smith','brian@mail.com','Delhi'),
+(3,'Carla White','carla@mail.com','Bangalore'),
+(4,'Deepak Mehra','deepak@mail.com','Hyderabad'),
+(5,'Eva Green','eva@mail.com','Pune'),
+(6,'Farhan Akhtar','farhan@mail.com','Chennai')
+
+alter table Customers
+add constraint CI1 primary key (customer_id)
+
+
+------------------------------------------------------------------------------------------------------
+
+
+Create table Orders (
+order_id int not null,
+customer_id int,
+order_date date,
+total_amount decimal(15,2))
+
+alter table Orders
+add constraint O1 primary key (order_id)  
+
+alter table Orders
+add constraint CIF1 foreign key (customer_id) references Customers (customer_id)
+
+
+insert into Orders values (10,1,'2024-08-01',1000.00),
+(11,2,'2024-08-03',2200.00),
+(12,1,'2024-08-04',450.00),
+(13,3,'2024-08-07',310.00),
+(14,4,'2024-08-08',699.00),
+(15,5,'2024-08-10',159.00),
+(16,6,'2024-08-11',456.00)
+
+------------------------------------------------------------------------------------------------------
+
+create table Products (
+product_id int not null,
+product_name varchar(100),
+unit_price decimal(15,2))
+
+alter table Products
+add constraint PI1 primary key (product_id)
+
+insert into Products values (101,'Laptop',500.00),
+(102,'Smartphone',300.00),
+(103,'Headphones',30.00),
+(104,'Mouse',15.00),
+(105,'Keyboard',20.00),
+(106,'Monitor',150.00),
+(107,'Speaker',45.00)
+
+------------------------------------------------------------------------------------------------------
+
+
+Create table OrderItems (
+order_item_id int not null,
+order_id int,
+product_id int,
+quantity int,
+price int)
+
+insert into OrderItems values (1,10,101,1,500),
+(2,10,103,2,60),
+(3,11,102,3,900),
+(4,11,104,2,30),
+(5,12,104,5,75),
+(6,13,105,2,40),
+(7,13,103,3,90),
+(8,14,102,1,300),
+(9,14,106,1,150),
+(10,15,104,2,30),
+(11,15,107,2,90),
+(12,16,101,1,500),
+(13,16,103,1,30)
+
+alter table OrderItems
+add constraint OIID1 primary key (order_item_id)
+
+alter table OrderItems
+add  constraint FKO1 foreign key (order_id) references Orders (order_id)
+
+alter table OrderItems
+add  constraint FKP1 foreign key (product_id) references Products (product_id)
+
+------------------------------------------------------------------------------------------------------
+Salespersons
+
+
+create table Salespersons (
+salesperson_id int not null,
+name varchar (100),
+city varchar(100),
+commission varchar(100))
+
+alter table Salespersons
+add constraint SID primary key (salesperson_id)
+
+
+insert into Salespersons values (501,'Jane Roland','Mumbai',0.15),
+(502,'Paul Atkinson','Delhi',0.12),
+(503,'Tina Roy','Bangalore',0.10),
+(504,'Irfan Khan','Hyderabad',0.18),
+(505,'Zoya Desai','Pune',0.11)
+
+------------------------------------------------------------------------------------------------------
+
+create table CustomerSalesperson (
+customer_id int,
+salesperson_id int)
+
+alter table CustomerSalesperson
+add constraint CIF2 foreign key (customer_id) references Customers (customer_id)
+
+alter table CustomerSalesperson
+add constraint CIS1 foreign key (salesperson_id) references Salespersons (salesperson_id)
+
+insert into CustomerSalesperson values (1,501),
+(2,502),
+(3,503),
+(4,504),
+(5,505),
+(6,504)
