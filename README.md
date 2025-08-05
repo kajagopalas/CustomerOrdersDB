@@ -14,6 +14,7 @@ To enhance SQL proficiency and demonstrate practical use cases relevant to busin
 ## File Structure
 - `schema/`: Contains SQL scripts to create tables and relationships
 - `queries/`: Contains SQL queries grouped by concepts or scenarios
+- `data/`: Contains `insert_sample_data.sql` to populate all tables with sample business data for testing and practice
 
 ## How to Use
 1. Run schema scripts to create the database structure.
