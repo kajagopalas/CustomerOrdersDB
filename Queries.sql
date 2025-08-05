@@ -449,22 +449,57 @@ where not exists (
   select 1 from OrderItems OI where OI.product_id = Products_R.product_id
 )
 
-Generate a monthly sales report for 2024.
-
 List customer names and the total number of different products they’ve purchased.
+Select A.[customer_id],Count(distinct B.[product_id]) NOP from [dbo].[Orders] A join [dbo].[OrderItems] B on A.order_id=B.order_id
+Group by A.[customer_id]
 
 Find products ordered together in the same order (order bundles).
 
+Select distinct([product_id]),[order_id] from [dbo].[OrderItems] where [order_id] in (
+Select [order_id]NOP from [dbo].[OrderItems]
+Group by [order_id]
+having Count(distinct [product_id])  > 1)
+
 For each salesperson, list their customers and each customer's last order date.
 
+with CTE1 as (Select [customer_id],Max([order_date]) LOD from [dbo].[Orders]
+Group by customer_id)
+
+Select Distinct A.[salesperson_id],CTE1.customer_id from [dbo].[CustomerSalesperson] A join CTE1 on A.customer_id=CTE1.customer_id
+
 Show sales trends by product (orders per month).
+Select Month([order_date]) Month,Sum([total_amount]) TS from [dbo].[Orders]
+Group by  Month([order_date])
 
 Find customers whose last order was more than 90 days ago.
+Select customer_id,OD,Datediff(DD,OD,cast(getdate() as date)) Diff from (
+Select [customer_id],Max([order_date]) OD from [dbo].[Orders]
+Group by customer_id) as A
+where Datediff(DD,OD,cast(getdate() as date)) > 90
+
 
 List customers who spent more this year than last year.
 
-Find products where total units sold exceeds 10.
+with TY as (Select  [customer_id],Sum([total_amount]) TYI from [dbo].[Orders]
+where Year([order_date]) =  Year(getdate())
+Group by customer_id),
+
+LY as (Select  [customer_id],Sum([total_amount]) LYI from [dbo].[Orders]
+where Year([order_date]) =  Year(dateadd(YYYY,-1,getdate()))
+Group by customer_id)
+
+Select TY.customer_id,TY.TYI,LY.LYI from TY join LY on TY.customer_id=LY.customer_id
+where TY.TYI > LY.LYI
+
+Find products where total units sold exceeds 5.
+Select [product_id],Sum([quantity]) TQ from [dbo].[OrderItems]
+Group by product_id
+having Sum([quantity]) > 5
+
 
 List all combinations of customers and products (cross join).
+Select A.[customer_id],B.[product_name] from [dbo].[Customers] A cross join Products B
 
-Show salespersons with orders only in their own city.
+Show salespersons with orders.
+Select A.[order_id],B.[salesperson_id] from [dbo].[Orders] A join [dbo].[CustomerSalesperson] B on A.customer_id=B.customer_id
+ 
