@@ -14,7 +14,6 @@ To enhance SQL proficiency and demonstrate practical use cases relevant to busin
 ## File Structure
 - `schema/`: Contains SQL scripts to create tables and relationships
 - `queries/`: Contains SQL queries grouped by concepts or scenarios
-- `docs/`: Documentation and notes on project insights
 
 ## How to Use
 1. Run schema scripts to create the database structure.
