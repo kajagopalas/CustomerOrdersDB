@@ -535,4 +535,43 @@ Select [name] from [dbo].[Customers] where [city] like 'M%'
 List all orders where the total amount is exactly 1000.
 Select [order_id] from [dbo].[Orders] where [total_amount] =1000
 
+ List all customers along with the total number of orders they have placed.
+
+Show each product and the number of times it was ordered.
+Select [product_id],Count([order_id]) NO from [dbo].[OrderItems]
+Group by [product_id]
+
+Find the average quantity of each product sold.
+Select [product_id],Avg([quantity]) Avga from [dbo].[OrderItems]
+Group by [product_id]
+
+Show total sales per product.
+SELECT [product_id], SUM([quantity] * [price]) AS total_sales 
+FROM [dbo].[OrderItems] 
+GROUP BY [product_id]
+
+List each salesperson with their assigned customers and number of orders.
+Select A.[salesperson_id],B.[customer_id],Count(B.[order_id]) NO from [dbo].[CustomerSalesperson] A join [dbo].[Orders] B on A.customer_id=B.customer_id
+Group by A.[salesperson_id],B.[customer_id] 
+
+Display orders along with the count of distinct products in each.
+select [order_id],count(distinct [product_id]) NDP from [dbo].[OrderItems]
+Group by [order_id]
+
+Retrieve customers along with the total amount they’ve spent.
+Select [customer_id],Sum([total_amount]) TA from [dbo].[Orders]
+Group by [customer_id]
+
+Find products that have been ordered in more than 2 different cities.
+Select A.[product_id],Count(distinct C.[city]) NC from [dbo].[OrderItems] A join [dbo].[Orders] B on A.order_id=B.order_id
+join [dbo].[Customers] C on B.customer_id=C.customer_id
+Group by A.[product_id]
+Having Count(distinct C.[city]) > 2
+
+Show salespersons with total sales greater than 10,000.
+Select A.[name],Sum(C.[total_amount]) TS from [dbo].[Salespersons] A join [dbo].[CustomerSalesperson] B on A.salesperson_id=B.salesperson_id Join [dbo].[Orders] C on B.customer_id=C.customer_id
+Group by A.[name]
+
+
+
  
