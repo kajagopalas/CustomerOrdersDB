@@ -1,0 +1,54 @@
+-- Create and use database
+CREATE DATABASE CustomerOrdersDB;
+USE CustomerOrdersDB;
+
+-- Customers Table
+CREATE TABLE Customers (
+    customer_id INT NOT NULL PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    city VARCHAR(50)
+);
+
+-- Orders Table
+CREATE TABLE Orders (
+    order_id INT NOT NULL PRIMARY KEY,
+    customer_id INT NOT NULL,
+    order_date DATE,
+    total_amount DECIMAL(10,2),
+    CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
+);
+
+-- Products Table
+CREATE TABLE Products (
+    product_id INT NOT NULL PRIMARY KEY,
+    product_name VARCHAR(100),
+    unit_price DECIMAL(10,2)
+);
+
+-- OrderItems Table
+CREATE TABLE OrderItems (
+    order_item_id INT NOT NULL PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT,
+    price DECIMAL(10,2),
+    CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES Orders(order_id),
+    CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES Products(product_id)
+);
+
+-- Salespersons Table
+CREATE TABLE Salespersons (
+    salesperson_id INT NOT NULL PRIMARY KEY,
+    name VARCHAR(100),
+    city VARCHAR(50),
+    commission DECIMAL(5,2)  -- Example: 0.15 for 15%
+);
+
+-- CustomerSalesperson Mapping Table
+CREATE TABLE CustomerSalesperson (
+    customer_id INT NOT NULL,
+    salesperson_id INT NOT NULL,
+    CONSTRAINT fk_cs_customer FOREIGN KEY (customer_id) REFERENCES Customers(customer_id),
+    CONSTRAINT fk_cs_salesperson FOREIGN KEY (salesperson_id) REFERENCES Salespersons(salesperson_id)
+);
