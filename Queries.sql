@@ -572,6 +572,81 @@ Show salespersons with total sales greater than 10,000.
 Select A.[name],Sum(C.[total_amount]) TS from [dbo].[Salespersons] A join [dbo].[CustomerSalesperson] B on A.salesperson_id=B.salesperson_id Join [dbo].[Orders] C on B.customer_id=C.customer_id
 Group by A.[name]
 
+List customers who have ordered both ‘Keyboard’ and ‘Monitor’.
+SELECT A.[customer_id]
+FROM Orders A
+JOIN [dbo].[OrderItems] B ON A.[order_id] = B.[order_id]
+JOIN [dbo].[Products] C ON B.product_id = C.product_id
+WHERE C.[product_name] IN ('Keyboard', 'Monitor')
+GROUP BY A.[customer_id]
+HAVING COUNT(DISTINCT C.[product_name]) = 2
+
+Find customers who have never ordered any product under ₹100.
+SELECT customer_id
+FROM Orders A
+JOIN [dbo].[OrderItems] B ON A.[order_id] = B.[order_id]
+JOIN [dbo].[Products] C ON B.product_id = C.product_id
+GROUP BY customer_id
+HAVING MIN(C.unit_price) >= 100
+
+Retrieve products that were only ordered in ‘Delhi’.
+SELECT C.product_name
+FROM Orders A
+JOIN [dbo].[OrderItems] B ON A.[order_id] = B.[order_id]
+JOIN [dbo].[Products] C ON B.product_id = C.product_id
+JOIN [dbo].[Customers] D ON A.customer_id = D.customer_id
+GROUP BY C.product_name
+HAVING SUM(CASE WHEN D.city <> 'Delhi' THEN 1 ELSE 0 END) = 0
+
+List customers who placed an order but are not assigned to any salesperson.
+SELECT DISTINCT A.customer_id
+FROM Customers A
+JOIN Orders O ON O.customer_id = A.customer_id
+LEFT JOIN CustomerSalesperson B ON A.customer_id = B.customer_id
+WHERE B.salesperson_id IS NULL
+
+Show products that have never been sold with quantity more than 5.
+SELECT product_id
+FROM OrderItems
+GROUP BY product_id
+HAVING MAX(quantity) <= 5
+
+Show all customers who have placed exactly two orders.
+SELECT customer_id
+FROM [dbo].[Orders]
+GROUP BY customer_id
+HAVING COUNT(order_id) = 2
+
+ Find customers who have ordered more than one product on the same date.
+SELECT A.customer_id, A.order_date
+FROM [dbo].[Orders] A
+JOIN [dbo].[OrderItems] B ON A.order_id = B.order_id
+GROUP BY A.customer_id, A.order_date
+HAVING COUNT(DISTINCT B.product_id) > 1
+
+
+Show products ordered only once.
+SELECT product_id
+FROM [dbo].[OrderItems]
+GROUP BY product_id
+HAVING COUNT(order_id) = 1
+
+List cities where total sales exceed the city average.
+WITH CityTotals AS (
+    SELECT A.city, SUM(B.total_amount) AS total_sales
+    FROM [dbo].[Customers] A
+    JOIN [dbo].[Orders] B ON A.customer_id = B.customer_id
+    GROUP BY A.city
+),
+AvgTotal AS (
+    SELECT AVG(total_sales) AS avg_city_sales
+    FROM CityTotals
+)
+SELECT C.city, C.total_sales
+FROM CityTotals C, AvgTotal A
+WHERE C.total_sales > A.avg_city_sales
+
+
 
 
  
