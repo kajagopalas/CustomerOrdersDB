@@ -42,7 +42,7 @@ CREATE TABLE Salespersons (
     salesperson_id INT NOT NULL PRIMARY KEY,
     name VARCHAR(100),
     city VARCHAR(50),
-    commission DECIMAL(5,2)  -- Example: 0.15 for 15%
+    commission DECIMAL(5,2)  
 );
 
 -- CustomerSalesperson Mapping Table
