@@ -502,4 +502,37 @@ Select A.[customer_id],B.[product_name] from [dbo].[Customers] A cross join Prod
 
 Show salespersons with orders.
 Select A.[order_id],B.[salesperson_id] from [dbo].[Orders] A join [dbo].[CustomerSalesperson] B on A.customer_id=B.customer_id
+
+List customer names who have emails containing the word "test".
+Select [name] from [dbo].[Customers] where [email] like '%test%'
+
+Show products whose name starts with ‘S’.
+Select distinct [product_name] from [dbo].[Products] where [product_name] like 's%'
+
+Retrieve all orders placed after ‘2025-01-01’.
+Select [order_id] from [dbo].[Orders] where [order_date] > '2025-01-01'
+
+List distinct cities from which customers have placed orders.
+Select distinct A.[city] from [dbo].[Customers] A join [dbo].[Orders] B on A.customer_id=B.customer_id
+
+Show the number of products that have a unit price over 500.
+Select count(product_id) NOP from [dbo].[Products] where [unit_price] > 500
+
+Display all orders that were made on a Monday.
+Select [order_id],datename(weekday,[order_date]) Weekday from [dbo].[Orders]
+where datename(weekday,[order_date]) in ('Monday')
+
+Find products with unit prices that are multiples of 10.
+Select [product_id],[unit_price] from Products
+where [unit_price] % 10 =0
+
+List customers whose names end with ‘n’.
+Select [name] from [dbo].[Customers] where name like '%n'
+
+Show all customers who live in cities starting with ‘M’.
+Select [name] from [dbo].[Customers] where [city] like 'M%'
+
+List all orders where the total amount is exactly 1000.
+Select [order_id] from [dbo].[Orders] where [total_amount] =1000
+
  
