@@ -12,7 +12,7 @@ This project includes a simulated Customer Orders database schema and a collecti
 To enhance SQL proficiency and demonstrate practical use cases relevant to business intelligence and data analytics.
 
 ## File Structure
-- `Schema/Optimised Schema`: Contains SQL scripts to create tables and relationships
+- `Schema & Optimised Schema/`: Contains SQL scripts to create tables and relationships
 - `Queries/`: Contains SQL queries grouped by concepts or scenarios
 - `Data/`: Contains `insert_sample_data.sql` to populate all tables with sample business data for testing and practice
 
