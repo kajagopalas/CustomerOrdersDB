@@ -707,6 +707,39 @@ Get customer names who placed orders matching the lowest value order.
 select name from Customers where customer_id in (
 Select [customer_id] from Orders where total_amount = (select min(total_amount) from Orders))
 
+ List all cities from Customers and Suppliers (using UNION).
+
+Select [city] from Customers
+union
+Select [city] from Salespersons
+
+Find product IDs that are in Products but not in OrderItems (EXCEPT).
+Select [product_id] from Products
+Except
+Select Distinct [product_id] from OrderItems
+
+List customer IDs that appear in both Customers and Orders (INTERSECT).
+Select [customer_id] from Customers
+Intersect
+Select distinct [customer_id] from Orders
+
+Retrieve customers who ordered ‘Keyboard’ but not ‘Mouse’.
+
+SELECT customer_id 
+FROM Orders A 
+JOIN OrderItems B ON A.order_id = B.order_id
+JOIN Products C ON B.product_id = C.product_id
+WHERE C.product_name = 'Keyboard'
+
+EXCEPT
+
+SELECT customer_id 
+FROM Orders A 
+JOIN OrderItems B ON A.order_id = B.order_id
+JOIN Products C ON B.product_id = C.product_id
+WHERE C.product_name = 'Mouse';
+
+
 
 
 
