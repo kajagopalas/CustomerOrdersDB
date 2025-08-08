@@ -819,6 +819,23 @@ Select A.[product_id],Sum(B.[total_amount]) TA from OrderItems A join Orders B o
 Group by A.[product_id]
 )
 Select *,Dense_Rank () over (Order by TA) Rank from CTE1
+ 
+Insert a new customer record.
+Insert into Customers values (61,'SGK','SGK@gmail.com','California')
+
+Update product price by 15% for Product ‘Keyboard’.
+Update Products
+set unit_price = unit_price * 1.5  where product_name = 'KeyBoard'
+
+Delete orders older than 2020.
+Delete from Orders_D where Year(order_date) < 2020
+
+Insert multiple rows into Products table.
+Insert into Products values (109,'Macbook',12000),(110,'Ipod',1000)
+
+Remove all  data regarding to email consisting mail from Customers table.
+Delete from Customers_R where email like '%mail%'
+ 
 
 
 
