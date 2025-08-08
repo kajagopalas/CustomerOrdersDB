@@ -851,7 +851,14 @@ drop column order_date
 Change data type of price to DECIMAL(12,2).
 Alter table OrderItems_D
 alter column price decimal(12,2)
+Create an index on customer_id in Orders table.
+Create Index CID on Orders (customer_id)
 
+Drop an index on product_name.
+Drop Index PN on Products
+
+Create a view showing customer, order, and amount.
+Create or alter view SGK as (select customer_id,order_date,total_amount from Orders)
 
 
 
