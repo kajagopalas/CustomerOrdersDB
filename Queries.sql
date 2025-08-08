@@ -739,6 +739,60 @@ JOIN OrderItems B ON A.order_id = B.order_id
 JOIN Products C ON B.product_id = C.product_id
 WHERE C.product_name = 'Mouse';
 
+ Rank customers by total spending.
+Select *,Dense_Rank () over (order by TS desc) Rank from (
+Select [customer_id],Sum([total_amount]) TS from Orders
+Group by [customer_id]) as A
+
+Get running total of orders per customer.
+Select [customer_id],[order_date],[total_amount],Sum([total_amount]) over (order by [order_date] rows between unbounded preceding and current row ) RT from [dbo].[Orders]
+
+
+Show the difference in order amount between current and previous order.
+With CTE1 as (Select [order_id],[total_amount] CO  from [dbo].[Orders]),
+CTE2 as (Select [order_id],Lag(total_amount)  over (Order by Order_ID) PO from Orders)
+
+Select CTE1.[order_id],(CO-PO) DIff from CTE1 join CTe2 on CTE1.[order_id]=CTE2.[order_id]
+
+Find the latest 2 orders per customer using ROW_NUMBER().
+Select * from (
+Select [customer_id],[order_id],Row_Number () over (Partition by customer_id order by order_date desc) RN From Orders) as A
+where RN <= 2
+
+List orders with their rank based on amount per month.
+Select *,Dense_Rank () over (Partition by Month order by TA desc) Rank from (
+Select [order_id],Month([order_date]) Month, Sum([total_amount]) TA from Orders
+Group by [order_id],Month([order_date])) as A
+
+Show cumulative revenue over time.
+Select order_date,Revenue,Sum(Revenue) Over (Order by Order_Date) RT from (
+Select order_date,Sum(Revenue) Revenue from (
+Select A.[order_date],(B.[quantity] * B.Price) Revenue from [dbo].[Orders] A join [dbo].[OrderItems] B on A.order_id=B.order_id) as A
+Group by order_date) as A
+
+Get moving average of total sales over last 3 days.
+Select *,Avg(TS) over (order by order_date rows between 2  preceding and current row) MvgAvg from  ( 
+Select order_date,Sum([total_amount]) TS from Orders
+Group by order_date ) as A
+
+Assign dense rank to products based on quantity sold.
+Select *,Dense_Rank () over (order by QS desc) Rank from (
+Select product_id,Sum(quantity) QS from OrderItems
+Group by product_id) as A
+
+Show lag and lead values of order amounts per customer.
+Select *,Lag(TA) over (Order by customer_id) Lag,Lead (TA) over (Order by customer_id) Lead from (
+Select [customer_id],Sum([total_amount]) TA from [dbo].[Orders]
+Group by [customer_id]
+ ) as A
+
+
+Find average order amount over last 3 orders for each customer.
+Select customer_id,Avg(total_amount) AVGA from (
+Select * from (
+Select [customer_id],[order_date],[total_amount],dense_rank () over (partition by customer_id order by order_date desc) Rank from Orders) as A
+where Rank <=3 ) as A
+Group by customer_id
 
 
 
