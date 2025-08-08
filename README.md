@@ -17,7 +17,6 @@ Designed to continuously strengthen SQL proficiency and demonstrate hands-on sol
 - **Advanced SQL Query Library:** A collection of complex SQL queries—joins, subqueries, aggregations, CTEs, window functions—crafted to solve various business analytics needs.
 - **Business Scenario Simulations:** Realistic datasets and scenario-based queries, covering order tracking, customer segmentation, sales analysis, and operations reporting.
 - **Sample Data Generation:** Insert scripts for diverse, scalable, and realistic business data—ideal for practice and demonstration.
-- **Clear Documentation:** Comprehensive README, usage instructions, and (optional) ER diagrams for better onboarding and usability.
 
 ***
 
