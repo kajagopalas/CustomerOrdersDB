@@ -794,6 +794,32 @@ Select [customer_id],[order_date],[total_amount],dense_rank () over (partition b
 where Rank <=3 ) as A
 Group by customer_id
 
+ Use a CTE to find top 3 customers by order count.
+
+With CTE1 as (Select *,Dense_Rank () over (Order by NUO desc) Rank from (
+Select [customer_id],Count([order_id]) NUO from Orders Group by [customer_id]) as A)
+Select * from CTE1 where Rank <=3
+
+Use CTE to calculate average order value per Product.
+
+With CTE1 as (
+Select B.product_id,A.total_amount from Orders A join OrderItems B on A.order_id=B.order_id)
+Select CTE1.product_id,AVG(CTE1.total_amount) AVGTA from CTE1
+Group by CTE1.product_id
+
+Generate a running balance using CTE.
+
+With CTE1 as (
+Select [order_date],[total_amount] from Orders)
+Select *,Sum(total_amount) over (order by order_date rows between unbounded preceding and current row) RT from CTE1
+
+Use CTE to find products with increasing sales trend.
+With CTE1 as (
+Select A.[product_id],Sum(B.[total_amount]) TA from OrderItems A join Orders B on A.order_id=B.order_id
+Group by A.[product_id]
+)
+Select *,Dense_Rank () over (Order by TA) Rank from CTE1
+
 
 
 
