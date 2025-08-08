@@ -38,7 +38,7 @@ Data/                        -- insert_sample_data.sql with sample business data
     cd CustomerOrdersDB
     ```
 2. **Set Up Database**
-    - Run SQL scripts in `Optimised Schema/` in your SQL client (supports MySQL, PostgreSQL, etc.).
+    - Run SQL scripts in `Optimised Schema/` in your SQL client (MSSQL).
 3. **Insert Sample Data**
     - Execute `Data.sql` to populate tables with realistic data.
 4. **Run Queries**
