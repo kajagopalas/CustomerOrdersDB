@@ -23,7 +23,7 @@ Designed to continuously strengthen SQL proficiency and demonstrate hands-on sol
 ## File Structure
 
 ```
-Schema & Optimised Schema/    -- SQL scripts to create and optimize tables & relationships
+Optimised Schema/    -- SQL scripts to create and optimize tables & relationships
 Queries/                     -- Advanced SQL queries grouped by scenario/concept
 Data/                        -- insert_sample_data.sql with sample business data
 ```
@@ -38,9 +38,9 @@ Data/                        -- insert_sample_data.sql with sample business data
     cd CustomerOrdersDB
     ```
 2. **Set Up Database**
-    - Run SQL scripts in `Schema & Optimised Schema/` in your SQL client (supports MySQL, PostgreSQL, etc.).
+    - Run SQL scripts in `Optimised Schema/` in your SQL client (supports MySQL, PostgreSQL, etc.).
 3. **Insert Sample Data**
-    - Execute `Data/insert_sample_data.sql` to populate tables with realistic data.
+    - Execute `Data.sql` to populate tables with realistic data.
 4. **Run Queries**
     - Explore practice queries and analytics challenges in the `Queries/` directory.
 
