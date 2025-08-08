@@ -26,7 +26,6 @@ Designed to continuously strengthen SQL proficiency and demonstrate hands-on sol
 Schema & Optimised Schema/    -- SQL scripts to create and optimize tables & relationships
 Queries/                     -- Advanced SQL queries grouped by scenario/concept
 Data/                        -- insert_sample_data.sql with sample business data
-Docs/                        -- (Optional: ER diagrams, visualizations)
 ```
 
 ***
