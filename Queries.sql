@@ -646,6 +646,67 @@ SELECT C.city, C.total_sales
 FROM CityTotals C, AvgTotal A
 WHERE C.total_sales > A.avg_city_sales
 
+ Find products that were never ordered.
+Select B.[product_id] from [dbo].[OrderItems] A right join [dbo].[Products] B on A.[product_id]=B.[product_id]
+where A.[product_id] is null
+
+Retrieve customers who placed the largest order.
+Select [customer_id],[order_id] from [dbo].[Orders]
+where [total_amount]=(select max([total_amount]) from [Orders])
+
+List products with price higher than average.
+Select [product_name],[unit_price] from [dbo].[Products]
+where [unit_price] > (select Avg([unit_price]) from [Products])
+
+Display orders with total amount above the overall average.
+Select [order_id],[total_amount] from [dbo].[Orders] where [total_amount] > (select avg([total_amount]) from Orders)
+
+Retrieve customers whose total spending is above the average.
+SELECT customer_id, SUM(total_amount) AS total_spent
+FROM Orders
+GROUP BY customer_id
+HAVING SUM(total_amount) > (SELECT AVG(total_amount) FROM Orders)
+
+Find products ordered by more than one customer.
+select A.[product_id],Count(Distinct B.[customer_id]) NOC from [dbo].[OrderItems] A join [dbo].[Orders] B on A.order_id=B.order_id
+Group by A.[product_id]
+having Count(Distinct B.[customer_id]) > 1
+
+Get customers who have only ordered once.
+select [customer_id],count([order_id]) NO from Orders group by [customer_id]
+having count([order_id])  = 1
+
+List customers who placed orders in both 2024 and 2025.
+
+select [customer_id] from orders where year([order_date])=2024
+intersect
+select [customer_id] from orders where year([order_date])=2025
+
+Find the second highest order amount.
+Select * from (
+Select [order_id],[total_amount],Dense_Rank () over (Order by [total_amount] desc) Rank From Orders ) as A
+where Rank = 2
+
+Show orders placed by customers from 'Bangalore' only.
+Select A.[name],A.[city] from [dbo].[Customers] A join [dbo].[Orders] B on A.customer_id=B.customer_id
+where A.[city] in ('Bangalore')
+
+List product names that appear in more than one order.
+Select [product_name] from [dbo].[Products] where product_id in (
+Select product_id  from [dbo].[OrderItems]
+Group by product_id
+having count(distinct [order_id]) > 1)
+
+Retrieve orders placed on the same date as the highest order.
+Select [order_id],[order_date] from [dbo].[Orders] where [order_date] = (select max(order_date) from Orders)
+
+Show product details with price equal to the highest price.
+Select [product_name],[unit_price] from [dbo].[Products] where unit_price = (select max(unit_price) from Products)
+
+Get customer names who placed orders matching the lowest value order.
+select name from Customers where customer_id in (
+Select [customer_id] from Orders where total_amount = (select min(total_amount) from Orders))
+
 
 
 
