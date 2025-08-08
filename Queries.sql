@@ -828,13 +828,13 @@ Update Products
 set unit_price = unit_price * 1.5  where product_name = 'KeyBoard'
 
 Delete orders older than 2020.
-Delete from Orders_D where Year(order_date) < 2020
+Delete from Orders where Year(order_date) < 2020
 
 Insert multiple rows into Products table.
 Insert into Products values (109,'Macbook',12000),(110,'Ipod',1000)
 
 Remove all  data regarding to email consisting mail from Customers table.
-Delete from Customers_R where email like '%mail%'
+Delete from Customers where email like '%mail%'
  
 
 
