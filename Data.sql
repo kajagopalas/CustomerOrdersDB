@@ -7,7 +7,9 @@ insert into Customers values (1,'Alice Johnson','alice@mail.com','Mumbai'),
 (7, 'Gautam Raj', 'gautam.raj@mail.com', 'Kolkata'),
 (8, 'Hema Malini', 'hema.mal@mail.com', 'Jaipur'),
 (9, 'Isaac Newton', 'isaac.newton@mail.com', 'Ahmedabad'),
-(10, 'Juhi Chawla', 'juhi.chawla@mail.com', 'Surat')
+(10, 'Juhi Chawla', 'juhi.chawla@mail.com', 'Surat'),
+(11, NULL, 'anonymous@mail.com', 'Delhi'),
+(12, 'Unknown User', NULL, NULL)
 
 ------------------------------------------------------------------------------------------------------
 
@@ -21,7 +23,9 @@ insert into Orders values (10,1,'2024-08-01',1000.00),
 (17, 7, '2024-08-12', 880.00),
 (18, 8, '2024-08-13', 1200.00),
 (19, 9, '2024-08-14', 499.00),
-(20, 10, '2024-08-15', 999.00)
+(20, 10, '2024-08-15', 999.00),
+(21, NULL, NULL, NULL),
+(22, 3, NULL, 275.00)
   
 
 ------------------------------------------------------------------------------------------------------
@@ -35,7 +39,9 @@ insert into Products values (101,'Laptop',500.00),
 (107,'Speaker',45.00),
 (108, 'Tablet', 250.00),
 (109, 'Charger', 20.00),
-(110, 'Webcam', 70.00)
+(110, 'Webcam', 70.00),
+(111, NULL, NULL),
+(112, 'Unknown Product', NULL)
 
 ------------------------------------------------------------------------------------------------------
 
@@ -58,7 +64,9 @@ insert into OrderItems values (1,10,101,1,500),
 (17, 18, 104, 3, 45),
 (18, 19, 110, 1, 70),
 (19, 20, 103, 2, 60),
-(20, 20, 107, 1, 45)
+(20, 20, 107, 1, 45),
+(21, NULL, NULL, NULL, NULL),
+(22, 11, NULL, 2, NULL)
 
 ------------------------------------------------------------------------------------------------------
 
@@ -68,7 +76,9 @@ insert into Salespersons values (501,'Jane Roland','Mumbai',0.15),
 (504,'Irfan Khan','Hyderabad',0.18),
 (505,'Zoya Desai','Pune',0.11),
 (506, 'Karan Singh', 'Kolkata', 0.13),
-(507, 'Lakshmi Rao', 'Jaipur', 0.14)
+(507, 'Lakshmi Rao', 'Jaipur', 0.14),
+(508, NULL, NULL, NULL),
+(509, 'Unknown Sales', NULL, NULL)
 
 ------------------------------------------------------------------------------------------------------
 
@@ -81,4 +91,6 @@ insert into CustomerSalesperson values (1,501),
 (7, 506),
 (8, 507),
 (9, 506),
-(10, 507)
+(10, 507),
+(NULL, 501),
+(1, NULL)
