@@ -835,7 +835,23 @@ Insert into Products values (109,'Macbook',12000),(110,'Ipod',1000)
 
 Remove all  data regarding to email consisting mail from Customers table.
 Delete from Customers where email like '%mail%'
- 
+ Create a table for tracking returned products.
+Create table track (
+Product_Id int,
+Returned varchar(5))
+
+Alter Orders table to add a status column.
+Alter table Orders
+add status varchar(10)
+
+Drop an unused column from Orders.
+Alter table Orders
+drop column order_date
+
+Change data type of price to DECIMAL(12,2).
+Alter table OrderItems_D
+alter column price decimal(12,2)
+
 
 
 
