@@ -180,24 +180,21 @@ SELECT
     YEAR(Calendar_Date) AS Year_ID
 FROM Calendar
 
+CREATE TABLE DimProduct_Category (
+    ProductCategoryID INT NOT NULL PRIMARY KEY,
+    ProductCategoryName VARCHAR(50) NOT NULL
+);
 
+CREATE TABLE DimProduct_Subcategory (
+    ProductSubcategoryID INT NOT NULL PRIMARY KEY,
+    ProductSubcategoryName VARCHAR(50) NOT NULL,
+    ProductCategoryID INT NOT NULL,
+    CONSTRAINT FK_ProductCategoryID FOREIGN KEY (ProductCategoryID) REFERENCES DimProduct_Category(ProductCategoryID)
+);
 
-Create Table DimProduct_Category (
-ProductCategoryID Int,
-ProductCategoryName Varchar(50),
-Constraint PK10 Primary key (ProductCategoryID))
-
-Create Table DimProduct_Subcategory (
-ProductSubcategoryID Int not null,
-ProductSubcategoryName Varchar(50),
-ProductCategoryID Int,
-Constraint PK11 Primary Key (ProductSubcategoryID),
-Constraint FK7 foreign key (ProductCategoryID) references DimProduct_Category (ProductCategoryID))
-
-Create Table DimProduct (
-Product_id Int Not null,
-Product_name VARCHAR(100),
-ProductSubcategoryID Int,
-ProductCategoryID Int,
-Constraint PK12 Primary Key (Product_id),
-Constraint FK8 foreign key (ProductSubcategoryID) references DimProduct_Subcategory (ProductSubcategoryID))
+CREATE TABLE DimProduct (
+    ProductID INT NOT NULL PRIMARY KEY,
+    ProductName VARCHAR(100) NOT NULL,
+    ProductSubcategoryID INT NOT NULL,
+    CONSTRAINT FK_ProductSubcategoryID FOREIGN KEY (ProductSubcategoryID) REFERENCES DimProduct_Subcategory(ProductSubcategoryID)
+);
