@@ -174,4 +174,4 @@ Product_name VARCHAR(100),
 ProductSubcategoryID Int,
 ProductCategoryID Int,
 Constraint PK12 Primary Key (Product_id),
-Constraint FK8 foreign key (ProductSubcategoryID) references Product_Subcategory (ProductSubcategoryID))
+Constraint FK8 foreign key (ProductSubcategoryID) references DimProduct_Subcategory (ProductSubcategoryID))
