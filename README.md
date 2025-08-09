@@ -13,10 +13,17 @@ Designed to continuously strengthen SQL proficiency and demonstrate hands-on sol
 
 ## Features
 
-- **Robust Database Schema:** Industry-standard scripts for normalized, relational table structures, ensuring efficiency and integrity.
-- **Advanced SQL Query Library:** A collection of complex SQL queries—joins, subqueries, aggregations, CTEs, window functions—crafted to solve various business analytics needs.
-- **Business Scenario Simulations:** Realistic datasets and scenario-based queries, covering order tracking, customer segmentation, sales analysis, and operations reporting.
-- **Sample Data Generation:** Insert scripts for diverse, scalable, and realistic business data—ideal for practice and demonstration.
+Realistic Business Scenario: Represents actual customer order workflows with tables for customers, orders, products, and related details.
+
+Advanced SQL Queries: Demonstrates joins, aggregations, CTEs, window functions, and subqueries to perform insightful data analysis.
+
+Normalized Schema Design: Follows industry best practices for relational integrity and efficient data storage.
+
+Date Hierarchy Dimension: Implements a structured date hierarchy (Year > Quarter > Month > Day) to enable flexible time-based analysis and reporting.
+
+Sample Data & Use Cases: Includes synthetic but realistic sample data and example queries aligned with common business questions.
+
+Active Development & Improvement: Continuously updated with new queries, optimizations, and documentation based on feedback and learning.
 
 ***
 
