@@ -30,9 +30,12 @@ Designed to continuously strengthen SQL proficiency and demonstrate hands-on sol
 ## File Structure
 
 
-├── OptimizedSchema/       -- SQL scripts to create and optimize tables, indexes, relationships
+├── Schema/       -- SQL scripts to create and optimize tables, indexes, relationships
+
 ├── Queries/               -- Advanced SQL query scripts grouped by scenario or concept
+
 ├── Data/                  -- Sample data insert scripts (insert_sample_data.sql)
+
 └── README.md              -- Project overview and instructions
 
 
@@ -46,7 +49,7 @@ Designed to continuously strengthen SQL proficiency and demonstrate hands-on sol
     cd CustomerOrdersDB
     ```
 2. **Set Up Database**
-    - Run SQL scripts in `Optimised Schema/` in your SQL client (MSSQL).
+    - Run SQL scripts in `Schema/` in your SQL client (MSSQL).
 3. **Insert Sample Data**
     - Execute `Data.sql` to populate tables with realistic data.
 4. **Run Queries**
