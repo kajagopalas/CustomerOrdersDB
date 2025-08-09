@@ -158,13 +158,11 @@ SELECT DISTINCT
     MONTH(Date) AS Month_Number
 FROM Calendar
 
-INSERT INTO DimWeek (Week_ID, Year_ID, Week_Number, Week_Start_Date, Week_End_Date)
+INSERT INTO DimWeek (Week_ID, Year_ID, Week_Number)
 SELECT DISTINCT
     (YEAR(Date) * 100) + DATEPART(WEEK, Date) AS Week_ID,
     YEAR(Date) AS Year_ID,
-    DATEPART(WEEK, Date) AS Week_Number,
-    DATEADD(DAY, - (DATEPART(WEEKDAY, Date) + @@DATEFIRST - 2) % 7, Date) AS Week_Start_Date,
-    DATEADD(DAY, 6 - (DATEPART(WEEKDAY, Date) + @@DATEFIRST - 2) % 7, Date) AS Week_End_Date
+    DATEPART(WEEK, Date) AS Week_Number
 FROM Calendar
 
 
