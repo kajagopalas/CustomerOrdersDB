@@ -1,0 +1,96 @@
+DimYear
+CREATE TABLE DimYear (
+    Year_ID INT NOT NULL PRIMARY KEY,   
+    Year_Name VARCHAR(4) NOT NULL      
+)
+
+DimQuarter
+CREATE TABLE DimQuarter (
+    Quarter_ID INT NOT NULL PRIMARY KEY,  
+    Year_ID INT NOT NULL,                  
+    Quarter_Name VARCHAR(6) NOT NULL,      
+    FOREIGN KEY (Year_ID) REFERENCES DimYear(Year_ID)
+)
+
+DimMonth
+CREATE TABLE DimMonth (
+    Month_ID INT NOT NULL PRIMARY KEY,    
+    Quarter_ID INT NOT NULL,               
+    Year_ID INT NOT NULL,                  
+    Month_Name VARCHAR(20) NOT NULL,      
+    Month_Number INT NOT NULL,             
+    FOREIGN KEY (Quarter_ID) REFERENCES DimQuarter(Quarter_ID),
+    FOREIGN KEY (Year_ID) REFERENCES DimYear(Year_ID)
+)
+
+DimWeek
+CREATE TABLE DimWeek (
+    Week_ID INT NOT NULL PRIMARY KEY,      
+    Year_ID INT NOT NULL,
+    Week_Number INT NOT NULL,              
+    Week_Start_Date DATE NOT NULL,         
+    Week_End_Date DATE NOT NULL,         
+    FOREIGN KEY (Year_ID) REFERENCES DimYear(Year_ID)
+)
+
+DimDate
+CREATE TABLE DimDate (
+    Date_ID DATE NOT NULL PRIMARY KEY,     -- Attribute Form: ID (can be actual date)
+    Day_Of_Week VARCHAR(10) NOT NULL,      -- Monday, Tuesday...
+    Day_Number INT NOT NULL,               -- 1-31
+    Week_ID INT NOT NULL,
+    Month_ID INT NOT NULL,
+    Quarter_ID INT NOT NULL,
+    Year_ID INT NOT NULL,
+    FOREIGN KEY (Week_ID) REFERENCES DimWeek(Week_ID),
+    FOREIGN KEY (Month_ID) REFERENCES DimMonth(Month_ID),
+    FOREIGN KEY (Quarter_ID) REFERENCES DimQuarter(Quarter_ID),
+    FOREIGN KEY (Year_ID) REFERENCES DimYear(Year_ID)
+)
+
+INSERT INTO DimYear (Year_ID, Year_Name)
+SELECT DISTINCT
+    YEAR(Calendar_Date) AS Year_ID,
+    CAST(YEAR(Calendar_Date) AS CHAR(4)) AS Year_Name
+FROM Calendar
+ORDER BY Year_ID
+
+INSERT INTO DimQuarter (Quarter_ID, Year_ID, Quarter_Name)
+SELECT DISTINCT
+    (YEAR(Calendar_Date) * 10) + DATEPART(QUARTER, Calendar_Date) AS Quarter_ID,
+    YEAR(Calendar_Date) AS Year_ID,
+    CONCAT('Q', DATEPART(QUARTER, Calendar_Date)) AS Quarter_Name
+FROM Calendar
+ORDER BY Quarter_ID
+
+INSERT INTO DimMonth (Month_ID, Quarter_ID, Year_ID, Month_Name, Month_Number)
+SELECT DISTINCT
+    (YEAR(Calendar_Date) * 100) + MONTH(Calendar_Date) AS Month_ID,
+    (YEAR(Calendar_Date) * 10) + DATEPART(QUARTER, Calendar_Date) AS Quarter_ID,
+    YEAR(Calendar_Date) AS Year_ID,
+    DATENAME(MONTH, Calendar_Date) AS Month_Name,
+    MONTH(Calendar_Date) AS Month_Number
+FROM Calendar
+ORDER BY Month_ID
+
+INSERT INTO DimWeek (Week_ID, Year_ID, Week_Number, Week_Start_Date, Week_End_Date)
+SELECT DISTINCT
+    (YEAR(Calendar_Date) * 100) + DATEPART(WEEK, Calendar_Date) AS Week_ID,
+    YEAR(Calendar_Date) AS Year_ID,
+    DATEPART(WEEK, Calendar_Date) AS Week_Number,
+    DATEADD(DAY, - (DATEPART(WEEKDAY, Calendar_Date) + @@DATEFIRST - 2) % 7, Calendar_Date) AS Week_Start_Date,
+    DATEADD(DAY, 6 - (DATEPART(WEEKDAY, Calendar_Date) + @@DATEFIRST - 2) % 7, Calendar_Date) AS Week_End_Date
+FROM Calendar
+ORDER BY Week_ID
+
+INSERT INTO DimDate (Date_ID, Day_Of_Week, Day_Number, Week_ID, Month_ID, Quarter_ID, Year_ID)
+SELECT
+    Calendar_Date AS Date_ID,
+    DATENAME(WEEKDAY, Calendar_Date) AS Day_Of_Week,
+    DAY(Calendar_Date) AS Day_Number,
+    (YEAR(Calendar_Date) * 100) + DATEPART(WEEK, Calendar_Date) AS Week_ID,
+    (YEAR(Calendar_Date) * 100) + MONTH(Calendar_Date) AS Month_ID,
+    (YEAR(Calendar_Date) * 10) + DATEPART(QUARTER, Calendar_Date) AS Quarter_ID,
+    YEAR(Calendar_Date) AS Year_ID
+FROM Calendar
+ORDER BY Date_ID
