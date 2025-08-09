@@ -848,7 +848,9 @@ Drop an unused column from Orders.
 Alter table Orders
 drop column order_date
 
-
+Change data type of price to DECIMAL(12,2).
+Alter table OrderItems_D
+alter column price decimal(12,2)
  
 
 
