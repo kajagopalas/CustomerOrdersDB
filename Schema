@@ -104,9 +104,7 @@ CREATE TABLE DimMonth (
 CREATE TABLE DimWeek (
     Week_ID INT NOT NULL,
     Year_ID INT NOT NULL,
-    Week_Number INT NOT NULL,
-    Week_Start_Date DATE NOT NULL,
-    Week_End_Date DATE NOT NULL,
+    Week_Number INT NOT NULL
     CONSTRAINT PK_Week PRIMARY KEY (Week_ID),
     CONSTRAINT FK_Week_Year FOREIGN KEY (Year_ID)
         REFERENCES DimYear(Year_ID)
@@ -159,13 +157,11 @@ SELECT DISTINCT
     MONTH(Calendar_Date) AS Month_Number
 FROM Calendar
 
-INSERT INTO DimWeek (Week_ID, Year_ID, Week_Number, Week_Start_Date, Week_End_Date)
+INSERT INTO DimWeek (Week_ID, Year_ID, Week_Number)
 SELECT DISTINCT
     (YEAR(Calendar_Date) * 100) + DATEPART(WEEK, Calendar_Date) AS Week_ID,
     YEAR(Calendar_Date) AS Year_ID,
-    DATEPART(WEEK, Calendar_Date) AS Week_Number,
-    DATEADD(DAY, - (DATEPART(WEEKDAY, Calendar_Date) + @@DATEFIRST - 2) % 7, Calendar_Date) AS Week_Start_Date,
-    DATEADD(DAY, 6 - (DATEPART(WEEKDAY, Calendar_Date) + @@DATEFIRST - 2) % 7, Calendar_Date) AS Week_End_Date
+    DATEPART(WEEK, Calendar_Date) AS Week_Number
 FROM Calendar
 
 
