@@ -14,7 +14,7 @@ CREATE TABLE Customers (
 -- Orders Table
 CREATE TABLE Orders (
     order_id INT NOT NULL ,
-    customer_id INT NOT NULL,
+    customer_id INT  NULL,
     order_date DATE,
     total_amount DECIMAL(10,2),
 	Constraint PK1 Primary Key (order_id),
