@@ -52,3 +52,97 @@ CREATE TABLE CustomerSalesperson (
     CONSTRAINT fk_cs_customer FOREIGN KEY (customer_id) REFERENCES Customers(customer_id),
     CONSTRAINT fk_cs_salesperson FOREIGN KEY (salesperson_id) REFERENCES Salespersons(salesperson_id)
 );
+
+
+DimYear
+
+CREATE TABLE DimYear (
+    Year_ID INT NOT NULL,
+    CONSTRAINT P1 PRIMARY KEY (Year_ID)
+)
+
+
+DimQuarter
+
+CREATE TABLE DimQuarter (
+    Year_ID INT NOT NULL,
+    Quarter_ID INT NOT NULL,
+    CONSTRAINT P2 PRIMARY KEY (Year_ID, Quarter_ID),
+    CONSTRAINT FK1 FOREIGN KEY (Year_ID) REFERENCES DimYear(Year_ID)
+)
+
+DimMonth
+
+CREATE TABLE DimMonth (
+    Year_ID INT NOT NULL,
+    Quarter_ID INT NOT NULL,
+    Month_ID INT NOT NULL,
+    Month_Name VARCHAR(20) NOT NULL,
+    CONSTRAINT P3 PRIMARY KEY (Year_ID, Quarter_ID, Month_ID),
+    CONSTRAINT FK2 FOREIGN KEY (Year_ID, Quarter_ID) REFERENCES DimQuarter(Year_ID, Quarter_ID)
+)
+
+DimDate
+
+CREATE TABLE DimDate (
+    [Date] DATE NOT NULL,
+    Day_Of_Week INT NOT NULL,
+    Day_Name VARCHAR(20) NOT NULL,
+    Day_Of_Month INT NOT NULL,
+    Week_Of_Year INT NOT NULL,
+    Month_ID INT NOT NULL,
+    Month_Name VARCHAR(20) NOT NULL,
+    Quarter_ID INT NOT NULL,
+    Year_ID INT NOT NULL,
+    Is_Weekend CHAR(1) NOT NULL,
+    CONSTRAINT P4 PRIMARY KEY ([Date]),
+    CONSTRAINT FK4 FOREIGN KEY (Year_ID, Quarter_ID, Month_ID)
+        REFERENCES DimMonth(Year_ID, Quarter_ID, Month_ID),
+    CONSTRAINT FK5 FOREIGN KEY (Year_ID, Quarter_ID)
+        REFERENCES DimQuarter(Year_ID, Quarter_ID),
+    CONSTRAINT FK6 FOREIGN KEY (Year_ID)
+        REFERENCES DimYear(Year_ID)
+)
+
+Insert Years
+
+INSERT INTO DimYear (Year_ID)
+SELECT DISTINCT YEAR([Date])
+FROM Calendar
+
+Insert Quarters
+
+INSERT INTO DimQuarter (Year_ID, Quarter_ID)
+SELECT DISTINCT 
+    YEAR([Date]), 
+    DATEPART(QUARTER, [Date])
+FROM Calendar
+
+Insert Months
+
+INSERT INTO DimMonth (Year_ID, Quarter_ID, Month_ID, Month_Name)
+SELECT DISTINCT
+    YEAR([Date]),
+    DATEPART(QUARTER, [Date]),
+    MONTH([Date]),
+    DATENAME(MONTH, [Date])
+FROM Calendar
+
+Insert Dates
+
+INSERT INTO DimDate (
+    [Date], Day_Of_Week, Day_Name, Day_Of_Month, Week_Of_Year,
+    Month_ID, Month_Name, Quarter_ID, Year_ID, Is_Weekend
+)
+SELECT 
+    [Date],
+    DATEPART(WEEKDAY, [Date]),
+    DATENAME(WEEKDAY, [Date]),
+    DATEPART(DAY, [Date]),
+    DATEPART(WEEK, [Date]),
+    MONTH([Date]),
+    DATENAME(MONTH, [Date]),
+    DATEPART(QUARTER, [Date]),
+    YEAR([Date]),
+    CASE WHEN DATENAME(WEEKDAY, [Date]) IN ('Saturday', 'Sunday') THEN 'Y' ELSE 'N' END
+FROM Calendar
