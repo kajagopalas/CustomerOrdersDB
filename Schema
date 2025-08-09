@@ -60,101 +60,127 @@ CREATE TABLE CustomerSalesperson (
 
 Create Table Calendar (
 Date Date Not NULL,
-Constraint PK9 Primary Key (Date))
+Constraint PK_Calendar Primary Key (Date))
 
 
-DimYear
+-- DimYear
 
 CREATE TABLE DimYear (
     Year_ID INT NOT NULL,
-    CONSTRAINT PK5 PRIMARY KEY (Year_ID)
-)
+    Year_Name VARCHAR(4) NOT NULL,
+    CONSTRAINT PK_Year PRIMARY KEY (Year_ID)
+);
 
-
-DimQuarter
+-- DimQuarter
 
 CREATE TABLE DimQuarter (
-    Year_ID INT NOT NULL,
     Quarter_ID INT NOT NULL,
-    CONSTRAINT PK6 PRIMARY KEY (Year_ID, Quarter_ID),
-    CONSTRAINT FK1 FOREIGN KEY (Year_ID) REFERENCES DimYear(Year_ID)
-)
+    Year_ID INT NOT NULL,
+    Quarter_Name VARCHAR(6) NOT NULL,
+    CONSTRAINT PK_Quarter PRIMARY KEY (Quarter_ID),
+    CONSTRAINT FK_Quarter_Year FOREIGN KEY (Year_ID)
+        REFERENCES DimYear(Year_ID)
+);
 
-DimMonth
+
+-- DimMonth
 
 CREATE TABLE DimMonth (
-    Year_ID INT NOT NULL,
-    Quarter_ID INT NOT NULL,
     Month_ID INT NOT NULL,
+    Quarter_ID INT NOT NULL,
+    Year_ID INT NOT NULL,
     Month_Name VARCHAR(20) NOT NULL,
-    CONSTRAINT PK7 PRIMARY KEY (Year_ID, Quarter_ID, Month_ID),
-    CONSTRAINT FK2 FOREIGN KEY (Year_ID, Quarter_ID) REFERENCES DimQuarter(Year_ID, Quarter_ID)
-)
+    Month_Number INT NOT NULL,
+    CONSTRAINT PK_Month PRIMARY KEY (Month_ID),
+    CONSTRAINT FK_Month_Quarter FOREIGN KEY (Quarter_ID)
+        REFERENCES DimQuarter(Quarter_ID),
+    CONSTRAINT FK_Month_Year FOREIGN KEY (Year_ID)
+        REFERENCES DimYear(Year_ID)
+);
 
-DimDate
+
+-- DimWeek
+
+CREATE TABLE DimWeek (
+    Week_ID INT NOT NULL,
+    Year_ID INT NOT NULL,
+    Week_Number INT NOT NULL,
+    Week_Start_Date DATE NOT NULL,
+    Week_End_Date DATE NOT NULL,
+    CONSTRAINT PK_Week PRIMARY KEY (Week_ID),
+    CONSTRAINT FK_Week_Year FOREIGN KEY (Year_ID)
+        REFERENCES DimYear(Year_ID)
+);
+
+
+-- DimDate
 
 CREATE TABLE DimDate (
-    [Date] DATE NOT NULL,
-    Day_Of_Week INT NOT NULL,
-    Day_Name VARCHAR(20) NOT NULL,
-    Day_Of_Month INT NOT NULL,
-    Week_Of_Year INT NOT NULL,
+    Date_ID DATE NOT NULL,
+    Day_Of_Week VARCHAR(10) NOT NULL,
+    Day_Number INT NOT NULL,
+    Week_ID INT NOT NULL,
     Month_ID INT NOT NULL,
-    Month_Name VARCHAR(20) NOT NULL,
     Quarter_ID INT NOT NULL,
     Year_ID INT NOT NULL,
-    Is_Weekend CHAR(1) NOT NULL,
-    CONSTRAINT PK8 PRIMARY KEY ([Date]),
-    CONSTRAINT FK4 FOREIGN KEY (Year_ID, Quarter_ID, Month_ID)
-        REFERENCES DimMonth(Year_ID, Quarter_ID, Month_ID),
-    CONSTRAINT FK5 FOREIGN KEY (Year_ID, Quarter_ID)
-        REFERENCES DimQuarter(Year_ID, Quarter_ID),
-    CONSTRAINT FK6 FOREIGN KEY (Year_ID)
+    CONSTRAINT PK_Date PRIMARY KEY (Date_ID),
+    CONSTRAINT FK_Date_Week FOREIGN KEY (Week_ID)
+        REFERENCES DimWeek(Week_ID),
+    CONSTRAINT FK_Date_Month FOREIGN KEY (Month_ID)
+        REFERENCES DimMonth(Month_ID),
+    CONSTRAINT FK_Date_Quarter FOREIGN KEY (Quarter_ID)
+        REFERENCES DimQuarter(Quarter_ID),
+    CONSTRAINT FK_Date_Year FOREIGN KEY (Year_ID)
         REFERENCES DimYear(Year_ID)
-)
+);
 
-Insert Years
 
-INSERT INTO DimYear (Year_ID)
-SELECT DISTINCT YEAR([Date])
-FROM Calendar
-
-Insert Quarters
-
-INSERT INTO DimQuarter (Year_ID, Quarter_ID)
-SELECT DISTINCT 
-    YEAR([Date]), 
-    DATEPART(QUARTER, [Date])
-FROM Calendar
-
-Insert Months
-
-INSERT INTO DimMonth (Year_ID, Quarter_ID, Month_ID, Month_Name)
+INSERT INTO DimYear (Year_ID, Year_Name)
 SELECT DISTINCT
-    YEAR([Date]),
-    DATEPART(QUARTER, [Date]),
-    MONTH([Date]),
-    DATENAME(MONTH, [Date])
+    YEAR(Calendar_Date) AS Year_ID,
+    CAST(YEAR(Calendar_Date) AS CHAR(4)) AS Year_Name
 FROM Calendar
 
-Insert Dates
 
-INSERT INTO DimDate (
-    [Date], Day_Of_Week, Day_Name, Day_Of_Month, Week_Of_Year,
-    Month_ID, Month_Name, Quarter_ID, Year_ID, Is_Weekend
-)
-SELECT 
-    [Date],
-    DATEPART(WEEKDAY, [Date]),
-    DATENAME(WEEKDAY, [Date]),
-    DATEPART(DAY, [Date]),
-    DATEPART(WEEK, [Date]),
-    MONTH([Date]),
-    DATENAME(MONTH, [Date]),
-    DATEPART(QUARTER, [Date]),
-    YEAR([Date]),
-    CASE WHEN DATENAME(WEEKDAY, [Date]) IN ('Saturday', 'Sunday') THEN 'Y' ELSE 'N' END
+INSERT INTO DimQuarter (Quarter_ID, Year_ID, Quarter_Name)
+SELECT DISTINCT
+    (YEAR(Calendar_Date) * 10) + DATEPART(QUARTER, Calendar_Date) AS Quarter_ID,
+    YEAR(Calendar_Date) AS Year_ID,
+    CONCAT('Q', DATEPART(QUARTER, Calendar_Date)) AS Quarter_Name
 FROM Calendar
+
+
+INSERT INTO DimMonth (Month_ID, Quarter_ID, Year_ID, Month_Name, Month_Number)
+SELECT DISTINCT
+    (YEAR(Calendar_Date) * 100) + MONTH(Calendar_Date) AS Month_ID,
+    (YEAR(Calendar_Date) * 10) + DATEPART(QUARTER, Calendar_Date) AS Quarter_ID,
+    YEAR(Calendar_Date) AS Year_ID,
+    DATENAME(MONTH, Calendar_Date) AS Month_Name,
+    MONTH(Calendar_Date) AS Month_Number
+FROM Calendar
+
+INSERT INTO DimWeek (Week_ID, Year_ID, Week_Number, Week_Start_Date, Week_End_Date)
+SELECT DISTINCT
+    (YEAR(Calendar_Date) * 100) + DATEPART(WEEK, Calendar_Date) AS Week_ID,
+    YEAR(Calendar_Date) AS Year_ID,
+    DATEPART(WEEK, Calendar_Date) AS Week_Number,
+    DATEADD(DAY, - (DATEPART(WEEKDAY, Calendar_Date) + @@DATEFIRST - 2) % 7, Calendar_Date) AS Week_Start_Date,
+    DATEADD(DAY, 6 - (DATEPART(WEEKDAY, Calendar_Date) + @@DATEFIRST - 2) % 7, Calendar_Date) AS Week_End_Date
+FROM Calendar
+
+
+INSERT INTO DimDate (Date_ID, Day_Of_Week, Day_Number, Week_ID, Month_ID, Quarter_ID, Year_ID)
+SELECT
+    Calendar_Date AS Date_ID,
+    DATENAME(WEEKDAY, Calendar_Date) AS Day_Of_Week,
+    DAY(Calendar_Date) AS Day_Number,
+    (YEAR(Calendar_Date) * 100) + DATEPART(WEEK, Calendar_Date) AS Week_ID,
+    (YEAR(Calendar_Date) * 100) + MONTH(Calendar_Date) AS Month_ID,
+    (YEAR(Calendar_Date) * 10) + DATEPART(QUARTER, Calendar_Date) AS Quarter_ID,
+    YEAR(Calendar_Date) AS Year_ID
+FROM Calendar
+
+
 
 Create Table DimProduct_Category (
 ProductCategoryID Int,
