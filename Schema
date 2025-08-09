@@ -156,3 +156,22 @@ SELECT
     CASE WHEN DATENAME(WEEKDAY, [Date]) IN ('Saturday', 'Sunday') THEN 'Y' ELSE 'N' END
 FROM Calendar
 
+Create Table DimProduct_Category (
+ProductCategoryID Int,
+ProductCategoryName Varchar(50),
+Constraint PK10 Primary key (ProductCategoryID))
+
+Create Table DimProduct_Subcategory (
+ProductSubcategoryID Int not null,
+ProductSubcategoryName Varchar(50),
+ProductCategoryID Int,
+Constraint PK11 Primary Key (ProductSubcategoryID),
+Constraint FK7 foreign key (ProductCategoryID) references Product_Category (ProductCategoryID))
+
+Create Table DimProduct (
+Product_id Int Not null,
+Product_name VARCHAR(100),
+ProductSubcategoryID Int,
+ProductCategoryID Int,
+Constraint PK12 Primary Key (Product_id),
+Constraint FK8 foreign key (ProductSubcategoryID) references Product_Subcategory (ProductSubcategoryID))
