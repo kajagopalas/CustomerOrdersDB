@@ -133,47 +133,50 @@ CREATE TABLE DimDate (
 );
 
 
+
 INSERT INTO DimYear (Year_ID, Year_Name)
 SELECT DISTINCT
-    YEAR(Calendar_Date) AS Year_ID,
-    CAST(YEAR(Calendar_Date) AS CHAR(4)) AS Year_Name
+    YEAR(Date) AS Year_ID,
+    CAST(YEAR(Date) AS CHAR(4)) AS Year_Name
 FROM Calendar
 
 
 INSERT INTO DimQuarter (Quarter_ID, Year_ID, Quarter_Name)
 SELECT DISTINCT
-    (YEAR(Calendar_Date) * 10) + DATEPART(QUARTER, Calendar_Date) AS Quarter_ID,
-    YEAR(Calendar_Date) AS Year_ID,
-    CONCAT('Q', DATEPART(QUARTER, Calendar_Date)) AS Quarter_Name
+    (YEAR(Date) * 10) + DATEPART(QUARTER, Date) AS Quarter_ID,
+    YEAR(Date) AS Year_ID,
+    CONCAT('Q', DATEPART(QUARTER, Date)) AS Quarter_Name
 FROM Calendar
 
 
 INSERT INTO DimMonth (Month_ID, Quarter_ID, Year_ID, Month_Name, Month_Number)
 SELECT DISTINCT
-    (YEAR(Calendar_Date) * 100) + MONTH(Calendar_Date) AS Month_ID,
-    (YEAR(Calendar_Date) * 10) + DATEPART(QUARTER, Calendar_Date) AS Quarter_ID,
-    YEAR(Calendar_Date) AS Year_ID,
-    DATENAME(MONTH, Calendar_Date) AS Month_Name,
-    MONTH(Calendar_Date) AS Month_Number
+    (YEAR(Date) * 100) + MONTH(Date) AS Month_ID,
+    (YEAR(Date) * 10) + DATEPART(QUARTER, Date) AS Quarter_ID,
+    YEAR(Date) AS Year_ID,
+    DATENAME(MONTH, Date) AS Month_Name,
+    MONTH(Date) AS Month_Number
 FROM Calendar
 
-INSERT INTO DimWeek (Week_ID, Year_ID, Week_Number)
+INSERT INTO DimWeek (Week_ID, Year_ID, Week_Number, Week_Start_Date, Week_End_Date)
 SELECT DISTINCT
-    (YEAR(Calendar_Date) * 100) + DATEPART(WEEK, Calendar_Date) AS Week_ID,
-    YEAR(Calendar_Date) AS Year_ID,
-    DATEPART(WEEK, Calendar_Date) AS Week_Number
+    (YEAR(Date) * 100) + DATEPART(WEEK, Date) AS Week_ID,
+    YEAR(Date) AS Year_ID,
+    DATEPART(WEEK, Date) AS Week_Number,
+    DATEADD(DAY, - (DATEPART(WEEKDAY, Date) + @@DATEFIRST - 2) % 7, Date) AS Week_Start_Date,
+    DATEADD(DAY, 6 - (DATEPART(WEEKDAY, Date) + @@DATEFIRST - 2) % 7, Date) AS Week_End_Date
 FROM Calendar
 
 
 INSERT INTO DimDate (Date_ID, Day_Of_Week, Day_Number, Week_ID, Month_ID, Quarter_ID, Year_ID)
 SELECT
-    Calendar_Date AS Date_ID,
-    DATENAME(WEEKDAY, Calendar_Date) AS Day_Of_Week,
-    DAY(Calendar_Date) AS Day_Number,
-    (YEAR(Calendar_Date) * 100) + DATEPART(WEEK, Calendar_Date) AS Week_ID,
-    (YEAR(Calendar_Date) * 100) + MONTH(Calendar_Date) AS Month_ID,
-    (YEAR(Calendar_Date) * 10) + DATEPART(QUARTER, Calendar_Date) AS Quarter_ID,
-    YEAR(Calendar_Date) AS Year_ID
+    Date AS Date_ID,
+    DATENAME(WEEKDAY, Date) AS Day_Of_Week,
+    DAY(Date) AS Day_Number,
+    (YEAR(Date) * 100) + DATEPART(WEEK, Date) AS Week_ID,
+    (YEAR(Date) * 100) + MONTH(Date) AS Month_ID,
+    (YEAR(Date) * 10) + DATEPART(QUARTER, Date) AS Quarter_ID,
+    YEAR(Date) AS Year_ID
 FROM Calendar
 
 CREATE TABLE DimProduct_Category (
