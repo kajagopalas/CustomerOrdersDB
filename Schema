@@ -32,7 +32,7 @@ CREATE TABLE Products (
 -- OrderItems Table
 CREATE TABLE OrderItems (
     order_item_id INT NOT NULL ,
-    order_id INT NOT NULL,
+    order_id INT  NULL,
     product_id INT NOT NULL,
     quantity INT,
     price DECIMAL(10,2),
