@@ -33,7 +33,7 @@ CREATE TABLE Products (
 CREATE TABLE OrderItems (
     order_item_id INT NOT NULL ,
     order_id INT  NULL,
-    product_id INT NOT NULL,
+    product_id INT  NULL,
     quantity INT,
     price DECIMAL(10,2),
 	Constraint PK3 Primary Key (order_item_id),
