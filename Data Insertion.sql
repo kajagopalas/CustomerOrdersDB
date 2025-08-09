@@ -97,15 +97,20 @@ insert into CustomerSalesperson values (1,501),
 
 -------------------------------------------------------------------------------------------------------
 
-Create Table Calendar (
-Date Date)
+Insert into DimProduct_Category Values (1,'Electronics'),(2,'Peripherals'),(3,'Audio')
+-------------------------------------------------------------------------------------------------------
 
-Alter Table Calendar
-alter column Date Date not null
+Insert into  DimProduct_Subcategory Values (201,'Computers',1),(202,'Mobile Devices',1),(203,'Computer Accessories',2),
+(204,'Audio Devices',3)
 
-Alter Table Calendar
-add constraint PK Primary Key (Date)
+-------------------------------------------------------------------------------------------------------
 
+Insert into DimProduct values (101,'Laptop',201,1),(102,'Smartphone',202,1),
+(103,'Headphones',204,3),(104,'Mouse',203,2),(105,'Keyboard',203,2),(106,'Monitor',201,1),(107,'Speaker',204,3),(108,'Tablet',201,1),
+(109,'Charger',202,1),(110, 'Webcam',203,2)
+
+
+-------------------------------------------------------------------------------------------------------
 Insert Into Calendar values ('2000-01-01'),
 ('2000-01-02'),
 ('2000-01-03'),
