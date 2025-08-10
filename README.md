@@ -21,6 +21,8 @@ Designed to continuously strengthen SQL proficiency and demonstrate hands-on sol
 
 **Date Hierarchy Dimension**: Implements a structured date hierarchy (Year > Quarter > Month > Day) to enable flexible time-based analysis and reporting.
 
+**Product Hierarchy Dimension**: Implements a structured product hierarchy (Category > Subcategory > Product) to enable flexible product-level, category-level, and portfolio-level analysis and reporting.
+
 **Sample Data & Use Cases**: Includes synthetic but realistic sample data and example queries aligned with common business questions.
 
 **Active Development & Improvement**: Continuously updated with new queries, optimizations, and documentation based on feedback and learning.
