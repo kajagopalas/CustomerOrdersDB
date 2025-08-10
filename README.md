@@ -36,10 +36,13 @@ Designed to continuously strengthen SQL proficiency and demonstrate hands-on sol
 
 **Data**/                  -- Sample data insert scripts (insert_sample_data.sql)
 
-Indexes/ – Scripts for creating and maintaining database indexes to improve query performance.
-Stored_Procedures/ – Parameterized SQL scripts encapsulating business logic for reusable operations.
-Views/ – Predefined SQL views for simplified reporting and analytics.
-Docs/ – Contains CustomerOrdersDB_Dimensional_Model.jpg, the ER/Dimensional model diagram.
+**Indexes**/ – Scripts for creating and maintaining database indexes to improve query performance.
+
+**Stored_Procedures**/ – Parameterized SQL scripts encapsulating business logic for reusable operations.
+
+**Views**/ – Predefined SQL views for simplified reporting and analytics.
+
+**Docs**/ – Contains CustomerOrdersDB_Dimensional_Model.jpg, the ER/Dimensional model diagram.
 
 **README**.md              -- Project overview and instructions
 
