@@ -1,7 +1,3 @@
-Yes, it's possible to add content to the same README file. I'll provide you with the updated content that includes a new section for the dashboards, as requested, so you can easily copy and paste it into your existing README.md file.
-
------
-
 ## Project Overview
 
 CustomerOrdersDB is a practical, self-developed SQL project that simulates complex customer order management and analytics for real-world business scenarios.
