@@ -221,7 +221,7 @@ INSERT INTO DimProduct VALUES
 (108, 'Tablet', 201),
 (109, 'Charger', 202),
 (110, 'Webcam', 203),
-(111, 'Unknown Product', 203),  
+(111, 'Unknown Product', 203),
 (112, 'Unknown Product', 203),
 (113, 'Printer', 206),
 (114, 'Scanner', 206),
