@@ -656,8 +656,8 @@ Insert into  DimProduct_Subcategory Values (201,'Computers',1),(202,'Mobile Devi
 
 Insert into DimProduct values (101,'Laptop',201),(102,'Smartphone',202),
 (103,'Headphones',204),(104,'Mouse',203),(105,'Keyboard',203),(106,'Monitor',201),(107,'Speaker',204),(108,'Tablet',201),
-(109,'Charger',202),(110, 'Webcam',203),(111, NULL, NULL),
-(112, 'Unknown Product', 203),
+(109,'Charger',202),(110, 'Webcam',203),(111, 'Unknown Product', 0),
+(111, 'Unknown Product', 0),
 (113, 'Printer', 206),
 (114, 'Scanner', 206),
 (115, 'External Hard Drive', 208),
