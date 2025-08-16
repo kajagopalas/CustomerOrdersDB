@@ -24,7 +24,6 @@ CREATE TABLE Orders (
 -- Products Table
 CREATE TABLE Products (
     product_id INT NOT NULL ,
-    product_name VARCHAR(100),
     unit_price DECIMAL(10,2),
 	Constraint PK2 Primary Key (product_id)
 )
