@@ -49,7 +49,7 @@ CREATE TABLE Salespersons (
 	Constraint PK4 Primary Key (salesperson_id)
 )
 
--- CustomerSalesperson Mapping Table
+-- CustomerSalesperson  Table
 CREATE TABLE CustomerSalesperson (
     customer_id INT NOT NULL,
     salesperson_id INT NOT NULL,
