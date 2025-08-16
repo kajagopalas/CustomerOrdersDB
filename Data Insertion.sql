@@ -637,7 +637,7 @@ insert into CustomerSalesperson values (1,501),
 
 -------------------------------------------------------------------------------------------------------
 
-Insert into DimProduct_Category Values (1,'Electronics'),(2,'Peripherals'),(3,'Audio')
+Insert into DimProduct_Category Values (1,'Electronics'),(2,'Peripherals'),(3,'Audio'),(4,'Unknown')
 -------------------------------------------------------------------------------------------------------
 
 Insert into  DimProduct_Subcategory Values (201,'Computers',1),(202,'Mobile Devices',1),(203,'Computer Accessories',2),
@@ -650,7 +650,7 @@ Insert into  DimProduct_Subcategory Values (201,'Computers',1),(202,'Mobile Devi
 (210, 'Presentation Equipment', 2),
 (211, 'Home Appliances', 1),
 (212, 'Security Devices', 1),
-(99,'Unknown')
+(999,'Unknown',4)
 
 
 -------------------------------------------------------------------------------------------------------
