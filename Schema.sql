@@ -103,7 +103,7 @@ CREATE TABLE DimMonth (
 CREATE TABLE DimWeek (
     Week_ID INT NOT NULL,
     Year_ID INT NOT NULL,
-    Week_Number INT NOT NULL
+    Week_Number INT NOT NULL,
     CONSTRAINT PK_Week PRIMARY KEY (Week_ID),
     CONSTRAINT FK_Week_Year FOREIGN KEY (Year_ID)
         REFERENCES DimYear(Year_ID)
