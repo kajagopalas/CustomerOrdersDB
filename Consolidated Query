@@ -1,0 +1,29 @@
+SELECT 
+    C.customer_id,
+    C.name AS customer_name,
+    C.email AS customer_email,
+    C.city AS customer_city,
+    O.order_id,
+    O.order_date AS Date,
+    O.total_amount,
+    OI.order_item_id,
+    OI.quantity,
+    OI.price AS item_price,
+    P.product_id,
+    P.unit_price,
+    S.salesperson_id,
+    S.name AS salesperson_name,
+    S.city AS salesperson_city,
+    S.commission,
+    CS.salesperson_id AS mapped_salesperson_id
+FROM Customers C
+INNER JOIN Orders O 
+    ON C.customer_id = O.customer_id
+INNER JOIN OrderItems OI 
+    ON O.order_id = OI.order_id
+INNER JOIN Products P 
+    ON OI.product_id = P.product_id
+INNER JOIN CustomerSalesperson CS 
+    ON C.customer_id = CS.customer_id
+INNER JOIN Salespersons S 
+    ON CS.salesperson_id = S.salesperson_id
