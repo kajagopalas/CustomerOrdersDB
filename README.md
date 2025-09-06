@@ -28,15 +28,15 @@ Designed to continuously strengthen SQL proficiency and demonstrate hands-on sol
 
 The `CustomerOrdersDB` project can power comprehensive business intelligence dashboards, providing insights into customer behavior, sales performance, and product trends. The following are examples of dashboards and visualizations that can be created using the data and queries from this project.
 
-### Customer Orders & Sales Insights
+### Core Business Performance KPIs
 
 This dashboard provides a holistic view of key sales metrics, including total revenue, average order value per customer, and average items per order. It showcases the project's ability to support high-level business overviews and key performance indicators (KPIs).
 
-### Revenue and Performance Analytics
+### Business Performance Overview
 
 This dashboard presents a detailed breakdown of revenue by product and salesperson, alongside daily trend analysis. It demonstrates the use of advanced SQL queries for multi-dimensional analysis, enabling users to identify top-performing products and sales team members.
 
-### Product and Sales Trends
+### Measuring and Analyzing Order Performance
 
 This dashboard focuses on product-specific performance and sales trends over time. It includes tables for product performance and sales trends, as well as a visual representation of revenue versus quantity over time, highlighting the project's capacity for time-series analysis and detailed reporting.
 
