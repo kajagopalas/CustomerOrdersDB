@@ -44,7 +44,7 @@ This dashboard focuses on product-specific performance and sales trends over tim
 
 ## File Structure
 
-**Schema**/ -- SQL scripts to create and optimize tables, indexes, relationships
+**Schema for queries Practice.sql & **/ -- SQL scripts to create and optimize tables, indexes, relationships
 
 **Queries**/ -- Advanced SQL query scripts grouped by scenario or concept
 
