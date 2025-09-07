@@ -4,16 +4,16 @@ CustomerOrdersDB is a practical, self-developed SQL project that simulates compl
 
 Designed to continuously strengthen SQL proficiency and demonstrate hands-on solutions for business intelligence and data analytics.
 
-- ## Database:
+- **Database**:
 
 - SQL Server 
-- ## Data Type:
+- **Data Type**:
 
   Synthetic but realistic data created specifically for this project  
-- ## Fact Table Handling:
+- **Fact Table Handling**:
 
   Microsoft Excel (structured and used for data loading/testing)  
-- ## Visualization Layer:
+- **Visualization Layer**:
 
   MicroStrategy (MSTR) dashboards for BI insights  
 
