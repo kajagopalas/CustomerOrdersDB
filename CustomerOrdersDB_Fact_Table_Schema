@@ -23,6 +23,8 @@ Add constraint FK_Date foreign key (order_date) references DimDate(Date_ID)
 Alter Table CustomerOrdersDB_Fact
 Add constraint FK_PID foreign key (ProductID) references DimProduct(ProductID)
 
+Create Index IN_Date on CustomerOrdersDB_Fact (order_date)
+Create Index IN_PID on CustomerOrdersDB_Fact (ProductID)
 
 insert into CustomerOrdersDB_Fact ( customer_id ,
 name  ,
