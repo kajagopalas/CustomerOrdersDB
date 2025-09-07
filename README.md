@@ -88,8 +88,11 @@ This dashboard focuses on product-specific performance and sales trends over tim
 ## Prerequisites
 
 SQL Server (preferred database)
+
 Microsoft Excel (fact table dataset)
+
 MicroStrategy (MSTR) for visualization
+
 Basic knowledge of SQL & relational modeling
 
 -----
