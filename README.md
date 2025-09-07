@@ -99,9 +99,11 @@ Basic knowledge of SQL & relational modeling
 
 ## Development & Maintenance
 
-  - **Actively improved** through ongoing learning and iteration to enhance realism and complexity.
-  - **Portfolio-driven:** Designed as both a personal upskilling tool and a professional showcase of SQL/database expertise.
-  - **Technologies Used:** SQL (MSSQL), Git.
+Actively improved with more queries, sample data, and BI visualizations.
+
+Portfolio-driven – Built as both a self-learning resource and professional BI/SQL showcase.
+
+Technologies Used – SQL Server, Excel, MicroStrategy, Git.
 
 -----
 
