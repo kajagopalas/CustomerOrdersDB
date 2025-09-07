@@ -6,7 +6,7 @@ Designed to continuously strengthen SQL proficiency and demonstrate hands-on sol
 
 - **Database**:
 
-- SQL Server 
+  SQL Server 
 - **Data Type**:
 
   Synthetic but realistic data created specifically for this project  
