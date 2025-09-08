@@ -26,9 +26,7 @@ Designed to continuously strengthen SQL proficiency and demonstrate hands-on sol
   MicroStrategy (MSTR) dashboards for BI insights  
 
  
-
-*This project is designed at the level of a BI/SQL Developer with ~3–4 years of professional experience, showcasing SQL query building, relational modeling, and business intelligence dashboard development using MicroStrategy.*
-
+This project demonstrates end-to-end BI/SQL development skills, including database design, advanced SQL queries, and MicroStrategy dashboarding
 
 -----
 
