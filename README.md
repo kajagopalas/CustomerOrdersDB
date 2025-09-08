@@ -17,7 +17,8 @@ Designed to continuously strengthen SQL proficiency and demonstrate hands-on sol
 
   MicroStrategy (MSTR) dashboards for BI insights  
 
-  **Dimensional Models Used**:
+ - **Dimensional Models Used**:
+  
 Star Schema for Querying (OLAP) – Diagram: Dimensional_Model_For_Queries_Star.jpg
 
 Snowflake Schema for Detailed Analytics (OLAP) – Diagram: CustomerOrdersDB_Dimensional_Model_Snowflake.jpg
