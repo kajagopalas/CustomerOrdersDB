@@ -6,9 +6,11 @@ Designed to continuously strengthen SQL proficiency and demonstrate hands-on sol
 
 - **Dimensional Models Used**:
 
-      Star Schema for Querying (OLAP) – Diagram: Dimensional_Model_For_Queries_Star.jpg
+       First, a Star Schema was designed for querying and OLAP analysis  
+      (Diagram: Dimensional_Model_For_Queries_Star.jpg)
 
-      Snowflake Schema for Detailed Analytics (OLAP) – Diagram: CustomerOrdersDB_Dimensional_Model_Snowflake.jpg
+      Later, the model was refined into a Snowflake Schema for more detailed analytics  
+      (Diagram: CustomerOrdersDB_Dimensional_Model_Snowflake.jpg)
 
 - **Database**:
 
