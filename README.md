@@ -137,4 +137,11 @@ Suggestions and pull requests are welcome.
 
 Feel free to fork, experiment, and propose improvements or additional scenarios\!
 
+## Open Source
+
+This project is released as an **open-source learning resource**.
+- **License**: free to use, modify, and share.
+- **Goal**: To support SQL/BI learners and professionals in practicing real-world scenarios.
+- **How to Contribute**: Fork, experiment, and submit pull requests or open issues with ideas and improvements.
+
 ***This project reflects ongoing self-driven learning and serves as a robust foundation for real-world SQL analytics.***
