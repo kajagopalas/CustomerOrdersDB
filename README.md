@@ -5,7 +5,7 @@ CustomerOrdersDB is a practical, self-developed SQL project that simulates compl
 Designed to continuously strengthen SQL proficiency and demonstrate hands-on solutions for business intelligence and data analytics.
 
 - **Dimensional Models Used**:
-  
+
       Star Schema for Querying (OLAP) – Diagram: Dimensional_Model_For_Queries_Star.jpg
 
       Snowflake Schema for Detailed Analytics (OLAP) – Diagram: CustomerOrdersDB_Dimensional_Model_Snowflake.jpg
