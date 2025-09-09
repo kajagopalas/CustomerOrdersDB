@@ -7,7 +7,7 @@ Designed to continuously strengthen SQL proficiency and demonstrate hands-on sol
 - **Dimensional Models Used**:
 
        First, Schema was designed for querying and OLAP analysis  
-      (Diagram: Dimensional_Model_For_Queries_Star.jpg)
+      (Diagram: Dimensional_Model_For_Queries.jpg)
 
       Later, the model was refined into a Snowflake Schema for more detailed analytics  
       (Diagram: CustomerOrdersDB_Dimensional_Model_Snowflake.jpg)
